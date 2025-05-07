@@ -1,3 +1,130 @@
+<html>
+<style>
+  html {
+    scroll-behaviour: smooth;
+  }
+  /* General form styling */
+  #contact-form {
+    max-width: 600px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  }
+
+  #contact-form h2 {
+    text-align: center;
+    color: #333;
+  }
+
+  label {
+    font-weight: bold;
+    color: #333;
+  }
+
+  input[type="text"], input[type="email"], textarea {
+    width: 100%;
+    padding: 10px;
+    margin: 8px 0 16px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-sizing: border-box;
+  }
+
+  input[type="submit"] {
+    width: 100%;
+    padding: 12px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+  }
+
+  input[type="submit"]:hover {
+    background-color: #45a049;
+  }
+
+  /* Responsive styling */
+  @media screen and (max-width: 600px) {
+    input[type="submit"] {
+      font-size: 14px;
+    }
+
+  /* Modal styles */
+  .modal {
+    display: none; /* Hidden by default */
+    position: fixed;
+    z-index: 1; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    background-color: rgba(0, 0, 0, 0.4); /* Black with opacity */
+    overflow: auto; /* Enable scroll if needed */
+    padding-top: 60px;
+  }
+
+  .modal-content {
+    background-color: #fefefe;
+    margin: 5% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%; /* Could be more or less, depending on screen size */
+    border-radius: 10px;
+  }
+
+  .close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+  }
+
+  .close:hover,
+  .close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+  }
+
+  /* Link styling */
+  #modal-project-link {
+    color: #4CAF50;
+    text-decoration: none;
+    font-weight: bold;
+  }
+
+  #modal-project-link:hover {
+    color: #45a049;
+  }
+  nav a.active {
+    color: #4CAF50; /* Highlight active section */
+    font-weight: bold;
+  }
+  back-to-top {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 50%;
+    font-size: 20px;
+    cursor: pointer;
+    display: none; /* Hidden by default */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  }
+
+  back-to-top:hover {
+    background-color: #45a049;
+  }
+</style>
+
+
 <body>
 
   <header>
@@ -26,16 +153,18 @@
   </section>
 
   <section id="projects">
-    <h2>Projects</h2>
-    <div class="project">
-      <h3>Desktop Tutorial</h3>
-      <p>Practice repo exploring GitHub basics and version control.</p>
-    </div>
-    <div class="project">
-      <h3>Bookstore Web Page</h3>
-      <p>A simple online bookstore built with HTML, CSS, and JavaScript.</p>
-    </div>
-  </section>
+  <h2>Projects</h2>
+  <div class="project" style="cursor: pointer;">
+    <h3>Desktop Tutorial</h3>
+    <p>Practice repo exploring GitHub basics and version control.</p>
+    <a href="https://github.com/dharanisindhu161/desktop-tutorial" target="_blank">View Project</a>
+  </div>
+  <div class="project" style="cursor: pointer;">
+    <h3>Bookstore Web Page</h3>
+    <p>A simple online bookstore built with HTML, CSS, and JavaScript.</p>
+    <a href="https://github.com/dharanisindhu161/bookstore-web-page" target="_blank">View Project</a>
+  </div>
+</section>
 
   <section id="contact">
     <h2>Contact</h2>
@@ -63,5 +192,112 @@
   <footer>
     <p>© 2025 Dharani Sindhu • Built with 💜 using GitHub Pages</p>
   </footer>
+  <!-- Modal -->
+<div id="project-modal" class="modal">
+  <div class="modal-content">
+    <span class="close">&times;</span>
+    <h2 id="modal-project-title">Project Title</h2>
+    <p id="modal-project-description">Project description goes here...</p>
+    <a id="modal-project-link" href="#" target="_blank">View Project</a>
+  </div>
+</div>
+  <button id="back-to-top" title="Back to top" style="display: none;">↑</button>
+
+
+  <script>
+  // Get the form element
+  const form = document.querySelector('form');
+
+  // Add an event listener to the form
+  form.addEventListener('submit', function(event) {
+    const name = document.getElementById('name').value;
+    const email = document.getElementById('email').value;
+    const message = document.getElementById('message').value;
+
+    // Simple validation
+    if (!name || !email || !message) {
+      alert('Please fill out all fields before submitting!');
+      event.preventDefault(); // Prevent form submission
+    }
+    <script>
+  // Get the modal
+  const modal = document.getElementById('project-modal');
+  const closeModal = document.getElementsByClassName('close')[0];
+
+  // Get all the project items and add click event
+  const projectItems = document.querySelectorAll('.project');
+
+  projectItems.forEach(item => {
+    item.addEventListener('click', function() {
+      // Get the project title and description from the clicked item
+      const projectTitle = item.querySelector('h3').textContent;
+      const projectDescription = item.querySelector('p').textContent;
+      const projectLink = item.querySelector('a').href;
+
+      // Populate the modal with project details
+      document.getElementById('modal-project-title').textContent = projectTitle;
+      document.getElementById('modal-project-description').textContent = projectDescription;
+      document.getElementById('modal-project-link').href = projectLink;
+
+      // Display the modal
+      modal.style.display = 'block';
+    });
+  });
+
+  // Close the modal when the user clicks the close button
+  closeModal.onclick = function() {
+    modal.style.display = 'none';
+  }
+
+  // Close the modal if the user clicks outside of it
+  window.onclick = function(event) {
+    if (event.target === modal) {
+      modal.style.display = 'none';
+    }
+  }
+  <script>
+  // Get all navigation links
+  const navLinks = document.querySelectorAll('nav a');
+
+  // Add event listener for scroll to highlight active link
+  window.addEventListener('scroll', () => {
+    let current = '';
+    document.querySelectorAll('section').forEach(section => {
+      const sectionTop = section.offsetTop;
+      if (pageYOffset >= sectionTop - 60) {
+        current = section.getAttribute('id');
+      }
+    });
+    
+    navLinks.forEach(link => {
+      link.classList.remove('active');
+      if (link.getAttribute('href').includes(current)) {
+        link.classList.add('active');
+      }
+    });
+  });
+  // Get the button
+  const backToTopButton = document.getElementById('back-to-top');
+
+  // Show or hide the button based on scroll position
+  window.onscroll = function() {
+    if (document.body.scrollTop > 100 || document.documentElement.scrollTop > 100) {
+      backToTopButton.style.display = 'block';
+    } else {
+      backToTopButton.style.display = 'none';
+    }
+  };
+
+  // Scroll to top when the button is clicked
+  backToTopButton.onclick = function() {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
+</script>
+
+  
+
+
 
 </body>
+</html>
